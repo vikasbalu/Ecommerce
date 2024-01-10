@@ -22,25 +22,25 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete = models.SET_NULL, null = True, blank = True)
     date_ordered = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False)
-    transaction_id = models.CharField(max_length=100,null=True)
+    transaction_id = models.CharField(max_length=100,null = True)
 
     def __str__(self):
         return self.transaction_id
     
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, related_name='items',on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, null=True, blank=True, on_delete = models.SET_NULL, null=True)
+    order = models.ForeignKey(Order, related_name='items',on_delete=models.SET_NULL, null = True, blank = True)
+    product = models.ForeignKey(Product, on_delete = models.SET_NULL, null = True, blank = True)
     quality = models.IntegerField(default = 0, null = True, blank = True)
     date_added = models.DateTimeField(auto_now_add = True)
 
 class ShippingAddress(models.Model):
-    customer = models.ForeignKey(Customer, on_delete = models.SET_NULL, null = True)
-    order = models.ForeignKey(Order, on_delete = models.SET_NULL, null = True)
+    customer = models.ForeignKey(Customer, on_delete = models.SET_NULL, null = True, blank = True)
+    order = models.ForeignKey(Order, on_delete = models.SET_NULL, null = True, blank = True)
     address = models.CharField(max_length = 256, null = True)
-    city = models.CharField(max_length = 256, null = False)
-    state = models.CharField(max_length = 256, null = False)
-    zipcode = models.CharField(max_length = 24, null = False)
+    city = models.CharField(max_length = 256, null = True)
+    state = models.CharField(max_length = 256, null = True)
+    zipcode = models.CharField(max_length = 24, null = True)
     data_added = models.DateTimeField(auto_now_add = True)
 
     def __str__(self) :
